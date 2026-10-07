@@ -11,6 +11,11 @@ from sklearn.metrics import accuracy_score, r2_score
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"message": "AI Portfolio Backend is live and running!", "docs": "/docs"}
+
+
 # Enable CORS so the HTML frontend can talk to the backend
 app.add_middleware(
     CORSMiddleware,
