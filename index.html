@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lokesh Reddy | AI & Systems Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #030712;
+            --card-bg: rgba(15, 23, 42, 0.7);
+            --accent-cyan: #06b6d4;
+            --accent-blue: #3b82f6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; background-image: radial-gradient(circle at 50% 10%, #0f172a 0%, #030712 80%); overflow-x: hidden; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* Navigation Bar */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 0; }
+        .logo { font-weight: 800; font-size: 1.25rem; letter-spacing: 0.5px; color: #fff; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95 font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: #fff; }
+
+        /* Hero Section */
+        hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 60px 0 40px 0; }
+        .hero-title { font-size: 4rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 20px; color: #fff; }
+        .hero-title span { background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-subtitle { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; line-height: 1.6; margin-bottom: 40px; }
+
+        /* Terminal Code Box */
+        .terminal-box { background: #0b0f19; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px; text-align: left; width: 100%; max-width: 650px; font-family: 'Fira Code', monospace; font-size: 0.9rem; box-shadow: 0 20px 40px rgba(0,0,0,0.6); margin-bottom: 60px; }
+        .terminal-dots { display: flex; gap: 8px; margin-bottom: 16px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+        .terminal-code { color: #34d399; line-height: 1.6; }
+        .terminal-code span { color: #93c5fd; }
+
+        /* Interactive Models Section */
+        .section-title { font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 30px; color: #fff; }
+        .tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
+        .tab-btn { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255,255,255,0.08); color: var(--text-muted); padding: 10px 24px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+        .tab-btn.active { background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%); color: white; border-color: transparent; box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3); }
+
+        .tab-content { display: none; grid-template-columns: 1.2fr 1fr; gap: 30px; margin-bottom: 80px; }
+        .tab-content.active { display: grid; }
+
+        .glass-card { background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; padding: 28px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .glass-card h3 { font-size: 1.25rem; margin-bottom: 20px; font-weight: 700; color: #fff; }
+
+        /* Sliders */
+        .slider-group { margin-bottom: 16px; }
+        .slider-label { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 500; margin-bottom: 6px; color: var(--text-muted); }
+        .slider-label span { color: var(--accent-cyan); font-weight: 700; }
+        input[type="range"] { width: 100%; appearance: none; height: 6px; background: #1e293b; border-radius: 3px; outline: none; }
+        input[type="range"]::-webkit-slider-thumb { appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--accent-cyan); cursor: pointer; box-shadow: 0 0 10px var(--accent-cyan); }
+
+        /* Metrics */
+        .metric-box { text-align: center; padding: 30px; background: rgba(3, 7, 18, 0.5); border-radius: 14px; border: 1px solid rgba(255,255,255,0.04); margin-top: 20px; }
+        .metric-title { font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 10px; }
+        .metric-value { font-size: 2.2rem; font-weight: 800; background: linear-gradient(135deg, #34d399 0%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .accuracy-badge { margin-top: 15px; font-size: 0.9rem; color: var(--text-muted); }
+        .accuracy-badge b { color: #34d399; }
+
+        @media(max-width: 900px) { .tab-content { grid-template-columns: 1fr; } .hero-title { font-size: 2.8rem; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">LOKESH.DEV</div>
+        <div class="nav-links">
+            <a href="#projects">Work</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <hero>
+        <h1 class="hero-title">Architecting<br><span>Intelligence.</span></h1>
+        <p class="hero-subtitle">Building basic ML Models</p>
+        
+        <!-- Terminal Box -->
+        <div class="terminal-box">
+            <div class="terminal-dots">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+            </div>
+            <div class="terminal-code">
+                > Lokesh.status = <span>'Ready to Build'</span>;<br>
+                > Contact: <span>alokeshreddy75@gmail.com</span>
+            </div>
+        </div>
+    </hero>
+
+    <!-- Interactive ML Projects Section -->
+    <div id="projects">
+        <h2 class="section-title">Interactive AI Models</h2>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('wine')">🍷 Wine Classifier</button>
+            <button class="tab-btn" onclick="switchTab('housing')">🏠 Housing Estimator</button>
+        </div>
+
+        <!-- WINE TAB -->
+        <div id="wine-tab" class="tab-content active">
+            <div class="glass-card">
+                <h3>🎛️ Chemical Parameters</h3>
+                <div id="wine-sliders"></div>
+            </div>
+            <div class="glass-card" style="display: flex; flex-direction: column; justify-content: center;">
+                <h3>📊 Model Inference</h3>
+                <div class="metric-box">
+                    <div class="metric-title">PREDICTED CULTIVAR</div>
+                    <div id="wine-result" class="metric-value">--</div>
+                    <div class="accuracy-badge">Model Accuracy: <b id="wine-acc">--</b></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HOUSING TAB -->
+        <div id="housing-tab" class="tab-content">
+            <div class="glass-card">
+                <h3>🎛️ Neighborhood Features</h3>
+                <div id="housing-sliders"></div>
+            </div>
+            <div class="glass-card" style="display: flex; flex-direction: column; justify-content: center;">
+                <h3>📊 Valuation Analytics</h3>
+                <div class="metric-box">
+                    <div class="metric-title">ESTIMATED MARKET VALUE</div>
+                    <div id="housing-result" class="metric-value">--</div>
+                    <div class="accuracy-badge">R² Score: <b id="housing-r2">--</b></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const API_URL = "http://127.0.0.1:8000";
+    let wineData = {}, housingData = {};
+
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        if(tab === 'wine') {
+            document.querySelector('.tabs button:nth-child(1)').classList.add('active');
+            document.getElementById('wine-tab').classList.add('active');
+        } else {
+            document.querySelector('.tabs button:nth-child(2)').classList.add('active');
+            document.getElementById('housing-tab').classList.add('active');
+        }
+    }
+
+    async function init() {
+        const res = await fetch(`${API_URL}/metadata`);
+        const meta = await res.json();
+        
+        const wineContainer = document.getElementById('wine-sliders');
+        meta.wine_features.forEach((feat, i) => {
+            wineData[feat] = meta.wine_defaults[i];
+            wineContainer.innerHTML += `
+                <div class="slider-group">
+                    <div class="slider-label">${feat} <span id="val-wine-${i}">${meta.wine_defaults[i].toFixed(2)}</span></div>
+                    <input type="range" min="0" max="${meta.wine_defaults[i] * 2.5}" step="0.01" value="${meta.wine_defaults[i]}" 
+                           oninput="updateWine('${feat}', ${i}, this.value)">
+                </div>`;
+        });
+
+        const housingContainer = document.getElementById('housing-sliders');
+        meta.housing_features.forEach((feat, i) => {
+            housingData[feat] = meta.housing_defaults[i];
+            housingContainer.innerHTML += `
+                <div class="slider-group">
+                    <div class="slider-label">${feat} <span id="val-housing-${i}">${meta.housing_defaults[i].toFixed(2)}</span></div>
+                    <input type="range" min="0" max="${meta.housing_defaults[i] * 2.5}" step="0.01" value="${meta.housing_defaults[i]}" 
+                           oninput="updateHousing('${feat}', ${i}, this.value)">
+                </div>`;
+        });
+
+        predictWine();
+        predictHousing();
+    }
+
+    async function updateWine(feat, idx, val) {
+        wineData[feat] = parseFloat(val);
+        document.getElementById(`val-wine-${idx}`).innerText = parseFloat(val).toFixed(2);
+        predictWine();
+    }
+
+    async function predictWine() {
+        const res = await fetch(`${API_URL}/predict/wine`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({features: Object.values(wineData)})
+        });
+        const data = await res.json();
+        document.getElementById('wine-result').innerText = data.prediction;
+        document.getElementById('wine-acc').innerText = data.accuracy + '%';
+    }
+
+    async function updateHousing(feat, idx, val) {
+        housingData[feat] = parseFloat(val);
+        document.getElementById(`val-housing-${idx}`).innerText = parseFloat(val).toFixed(2);
+        predictHousing();
+    }
+
+    async function predictHousing() {
+        const res = await fetch(`${API_URL}/predict/housing`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({features: Object.values(housingData)})
+        });
+        const data = await res.json();
+        document.getElementById('housing-result').innerText = '$' + data.prediction.toLocaleString();
+        document.getElementById('housing-r2').innerText = data.r2_score + '%';
+    }
+
+    init();
+</script>
+</body>
+</html>
